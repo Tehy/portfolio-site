@@ -1,0 +1,117 @@
+form {
+}
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400");
+
+* {
+  box-sizing: border-box;
+  font-family: Raleway;
+}
+html,
+body {
+  margin: 0;
+
+  background-image: url("/img/bg.jpg");
+}
+
+hr {
+  margin-top: 0;
+}
+
+ul {
+  display: inline-block;
+  padding: 0;
+}
+label {
+  display: block;
+  margin: 15px;
+}
+textarea {
+  padding-top: 10px;
+  width: 250px;
+  height: 100px;
+}
+input {
+  text-align: center;
+  width: 200px;
+}
+#contact-form {
+  justify-content: center;
+}
+
+.app {
+}
+
+.nav-bar {
+  font-size: x-large;
+  padding-top: 30px;
+  padding-bottom: 10px;
+
+  text-align: center;
+  display: block;
+  position: relative;
+  width: auto;
+  background-color: whitesmoke;
+}
+.nav-bar a {
+  padding-left: 15px;
+  transition: underline 2s linear;
+}
+.nav-bar li {
+  font-size: x-large;
+  display: inline-flex;
+  list-style: none;
+  transition: underline 2s linear;
+}
+.nav-bar li:hover {
+  text-decoration: underline;
+}
+.nav-bar img {
+  display: block;
+  margin: auto;
+  height: 100px;
+  border-radius: 50px;
+}
+.nav-bar svg {
+  margin: 1px;
+}
+
+.icons a {
+  padding: 2px;
+}
+.icons a:hover {
+  color: rgb(153, 153, 153);
+}
+.content {
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+  left: 10px;
+  right: 10px;
+  position: absolute;
+  background-color: rgb(180, 180, 180, 0.2);
+  border-radius: 15px;
+  padding: 5px;
+  padding-bottom: 25px;
+}
+.content-projects {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.project {
+  margin: 10px;
+  border: black solid 1px;
+}
+.project a {
+  display: block;
+  margin-top: 5px;
+  color: rgb(59, 59, 59);
+  font-size: large;
+}
+a {
+  color: rgb(59, 59, 59);
+}
+h4 {
+  margin: 0;
+  padding: 5px;
+}
