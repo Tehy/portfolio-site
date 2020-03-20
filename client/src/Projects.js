@@ -4,7 +4,7 @@ import Language from "./Language";
 
 export default function Projects() {
   useEffect(() => {
-    fetchProjects();
+    //fetchProjects();
   }, []);
 
   const [loading, setLoading] = useState(true);
@@ -30,10 +30,6 @@ export default function Projects() {
       data: { lang: l, projects: projects.filter(p => p.language == l) }
     };
   });
-
-  if (projByLang.length > 0) {
-    console.log(projByLang);
-  }
 
   if (loading)
     return (

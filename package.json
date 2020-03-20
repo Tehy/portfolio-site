@@ -1,12 +1,14 @@
 {
-  "name": "test",
+  "name": "portfolio",
   "version": "1.0.0",
-  "description": "portfolio test",
+  "description": "portfolio",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "npm install && npm run build",
+    "build": "cd build && npm install && cd .. && npm run serve",
+    "serve": "node index.js && npm run client",
     "server": "nodemon index.js",
-    "client": "npm run start --prefix client",
+    "client": "npm run start --prefix build",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",

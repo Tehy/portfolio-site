@@ -48,7 +48,11 @@ app.post("/api/form", (req, resp) => {
 });
 
 const PORT = process.env.PORT || 3001;
+//const PORT = 8080;
 
 app.listen(PORT, () => {
-  console.log("serveslisten ", { PORT });
+  console.log("serverlisten ", { PORT });
 });
+/* app.get("/", function(req, res) {
+  res.render("./build/index.html");
+}); */
