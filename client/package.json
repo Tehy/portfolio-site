@@ -16,7 +16,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build-deploy": "react-scripts build && npm run check-exist",
+    "check-exist": "path-exists ../build && npm run remove || npm run move",
+    "remove": "trash ../build && npm run move",
+    "move": "move build .. && npm run deploy",
+    "deploy": "cd .. && gcloud app deploy",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -34,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "path-exists": "^4.0.0"
   }
 }
