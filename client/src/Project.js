@@ -7,7 +7,7 @@ export default function Project(props) {
       <h4>{props.name}</h4>
       {props.description}
       <br />
-      <a href={props.link} target="_blank">
+      <a href={props.link} target="_blank" rel="noopener noreferrer">
         <FaGithub />
       </a>
     </div>

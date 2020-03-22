@@ -8,28 +8,57 @@ export default function NavBar() {
     <div>
       <nav className="nav-bar">
         {/* <img src="/img/avatar.svg"></img> */}
-        <img src="/img/avatar2.svg"></img>
+        {/* <div className="back"></div>
+        <div className="back2"></div> */}
+        <img className="avatar" src="/img/avatar2.svg" alt=""></img>
 
         <ul>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <li>Home</li>
+          <Link className="nav-link" to="/" style={{ textDecoration: "none" }}>
+            <li>About</li>
           </Link>
-          <Link to="/projects" style={{ textDecoration: "none" }}>
+          <Link
+            className="nav-link"
+            to="/projects"
+            style={{ textDecoration: "none" }}
+          >
             <li>Projects</li>
           </Link>
-          <Link to="/cv" style={{ textDecoration: "none" }}>
+          <Link
+            className="nav-link"
+            to="/cv"
+            style={{ textDecoration: "none" }}
+          >
             <li>CV</li>
           </Link>
-          <Link to="/contact" style={{ textDecoration: "none" }}>
+          <Link
+            className="nav-link"
+            to="/contact"
+            style={{ textDecoration: "none" }}
+          >
             <li>Contact</li>
           </Link>
         </ul>
         <div className="icons">
-          <a href="https://github.com/Tehy" target="_blank">
+          <a
+            href="https://github.com/Tehy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaLinkedin size={iconsize} />
           </a>
-          <a href="https://github.com/Tehy" target="_blank">
+          <a
+            href="https://github.com/Tehy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaGithubSquare size={iconsize} />
+          </a>
+          <a
+            href="https://www.codewars.com/users/terhytti"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="/img/codewars.png" alt="codewars icon"></img>
           </a>
         </div>
       </nav>

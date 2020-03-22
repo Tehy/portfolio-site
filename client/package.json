@@ -40,6 +40,7 @@
     ]
   },
   "devDependencies": {
-    "path-exists": "^4.0.0"
+    "path-exists": "^4.0.0",
+    "trash-cli": "^3.0.0"
   }
 }

@@ -4,7 +4,7 @@ import Language from "./Language";
 
 export default function Projects() {
   useEffect(() => {
-    //fetchProjects();
+    fetchProjects();
   }, []);
 
   const [loading, setLoading] = useState(true);
@@ -12,10 +12,9 @@ export default function Projects() {
 
   const fetchProjects = async () => {
     const data = await fetch("https://api.github.com/users/Tehy/repos");
-
     const repos = await data.json();
+    //const portfolioRepos=repos.map(r=> if(fetch(repos.html_url))
 
-    //console.log(repos);
     setProjects(repos);
     setLoading(false);
   };
@@ -27,9 +26,12 @@ export default function Projects() {
 
   var projByLang = languages.map(l => {
     return {
-      data: { lang: l, projects: projects.filter(p => p.language == l) }
+      data: { lang: l, projects: projects.filter(p => p.language === l) }
     };
   });
+  if (projects) {
+    console.log(projects);
+  }
 
   if (loading)
     return (
