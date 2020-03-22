@@ -6,6 +6,9 @@ handlers:
   - url: /img
     static_dir: build/img
 
+  - url: /personal
+    static_dir: build/personal
+
   - url: /static
     static_dir: build/static
 

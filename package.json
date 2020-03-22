@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "npm install && npm run build",
-    "build": "cd build && npm install && cd .. && npm run serve",
-    "serve": "node index.js && npm run client",
-    "server": "nodemon index.js",
+    "build": "cd build && npm install && cd .. && npm run server",
+    "server": "node index.js && npm run client",
     "client": "npm run start --prefix build",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "deploy": "path-exists build && echo 'exists' || echo 'doesnt exist'"
+    "dev-client": "npm run start --prefix client",
+    "dev-server": "nodemon index.js",
+    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\""
   },
   "author": "",
   "license": "ISC",
@@ -23,7 +23,6 @@
     "nodemon": "^2.0.2"
   },
   "devDependencies": {
-    "@google-cloud/nodejs-repo-tools": "^3.3.0",
-    "trash-cli": "^3.0.0"
+    "@google-cloud/nodejs-repo-tools": "^3.3.0"
   }
 }
