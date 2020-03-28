@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import axios from "axios";
 
 class Contact extends Component {
@@ -24,12 +24,16 @@ class Contact extends Component {
 
     const { name, email, message } = this.state;
 
-    //const form = await axios.post("/api/form", {
-    const form = axios.post("/api/form", {
-      name,
-      email,
-      message
-    });
+    const form = axios
+      .post("/api/form", {
+        name,
+        email,
+        message
+      })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      });
     this.setState({
       messageSent: true
     });

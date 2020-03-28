@@ -1,0 +1,9 @@
+env: flex
+runtime: nodejs
+service: flex
+
+# https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml
+
+env_variables:
+  SERVICE_BUILD: "flex"
+

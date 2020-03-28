@@ -4,7 +4,7 @@ import Language from "./Language";
 
 export default function Projects() {
   useEffect(() => {
-    fetchProjects();
+    //fetchProjects();
   }, []);
 
   const [loading, setLoading] = useState(true);
@@ -13,6 +13,8 @@ export default function Projects() {
   const fetchProjects = async () => {
     const data = await fetch("https://api.github.com/users/Tehy/repos");
     const repos = await data.json();
+
+    //var data = await fetch("https://api.github.com/users/Tehy/repos");
     //const portfolioRepos=repos.map(r=> if(fetch(repos.html_url))
 
     setProjects(repos);
@@ -36,7 +38,8 @@ export default function Projects() {
   if (loading)
     return (
       <div className="content">
-        <h2>Loading...</h2>
+        <h2>wip</h2>
+        {/* <h2>Loading...</h2> */}
       </div>
     );
   return (

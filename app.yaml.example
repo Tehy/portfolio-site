@@ -4,3 +4,4 @@ service: default
 
 env_variables:
   SERVICE_BUILD: "standard"
+

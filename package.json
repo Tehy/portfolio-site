@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "portfolio",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "start": "npm install && npm run build",
+    "deploy": "cd client && npm run deploy",
+    "deploy-flex": "cd client && npm run deploy-flex",
+    "log": "gcloud app logs tail -s default",
+    "start": "node index.js",
     "build": "cd build && npm install && cd .. && npm run server",
     "server": "node index.js && npm run client",
     "client": "npm run start --prefix build",
@@ -16,11 +20,15 @@
   "license": "ISC",
   "keywords": [],
   "dependencies": {
+    "@sendgrid/client": "^6.5.5",
+    "@sendgrid/mail": "^6.5.5",
     "body-parser": "^1.19.0",
     "concurrently": "^5.1.0",
     "express": "^4.17.1",
+    "https": "^1.0.0",
     "nodemailer": "^6.4.5",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "sendgrid": "^5.2.3"
   },
   "devDependencies": {
     "@google-cloud/nodejs-repo-tools": "^3.3.0"

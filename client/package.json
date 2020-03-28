@@ -12,15 +12,19 @@
     "react-dom": "^16.13.0",
     "react-icons": "^3.9.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.0",
+    "trash": "^6.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build-deploy": "react-scripts build && npm run check-exist",
+    "build": "react-scripts build",
+    "deploy-flex": "react-scripts build && npm run check-exist && npm run gdeploy-flex",
+    "deploy": "react-scripts build && npm run check-exist && npm run gdeploy",
     "check-exist": "path-exists ../build && npm run remove || npm run move",
     "remove": "trash ../build && npm run move",
-    "move": "move build .. && npm run deploy",
-    "deploy": "cd .. && gcloud app deploy",
+    "move": "move build ..",
+    "gdeploy": "cd .. && gcloud app deploy",
+    "gdeploy-flex": "cd .. && gcloud app deploy app-flex.yaml",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

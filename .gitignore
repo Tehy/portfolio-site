@@ -1,4 +1,6 @@
 node_modules
 build
-config.json
 todo
+config.json
+app.yaml
+app-flex.yaml

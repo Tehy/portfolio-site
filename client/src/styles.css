@@ -50,8 +50,10 @@ input {
   display: block;
   position: relative;
   width: auto;
+
   background-color: whitesmoke;
 }
+
 .nav-bar a {
   padding-left: 15px;
   transition: underline 2s linear;
@@ -74,14 +76,20 @@ input {
 .nav-bar svg {
   margin: 1px;
 }
-
+.nav-bar p {
+  text-align: end;
+  font-weight: bold;
+  font-size: 0.5em;
+  margin: 0;
+  transform: translate(0, +10px);
+}
 .icons a {
   padding: 2px;
 }
 .icons img {
   display: inline-block;
   margin-left: 3px;
-  transform: translate(0, -3px);
+  transform: translate(0, -2.5px);
   height: 22px;
   border-radius: 0;
 }
@@ -140,11 +148,20 @@ h4 {
   text-align: left;
   padding-top: 15px;
 }
-.about-img {
+.about-icons {
+  display: inline-block;
   transform: translate(50px, -25px);
   margin-left: 0px;
   padding-left: 0px;
   width: 35%;
+}
+.about-icons p {
+  padding-top: 0px;
+  margin: 10px;
+  font-size: x-large;
+  display: block;
+}
+.about-img {
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -153,4 +170,7 @@ h4 {
 .about-img img {
   height: 60px;
   margin: 7px;
+}
+img:hover {
+  opacity: 1;
 }

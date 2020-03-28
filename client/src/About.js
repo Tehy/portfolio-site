@@ -11,18 +11,20 @@ export default function About() {
           <li>Jyväskylä, Finland</li>
         </ul>
       </div>
-      <div className="about-img">
-        <img src="/img/python.svg"></img>
-        <img src="/img/docker.svg"></img>
-
-        <img src="/img/html.svg"></img>
-        <img src="/img/javascript.svg"></img>
-        <img src="/img/reactjs.svg"></img>
-        <img src="/img/nodejs.svg"></img>
-
-        <img src="/img/linux.svg"></img>
-        <img src="/img/google-appengine.svg"></img>
-        <img src="/img/git.svg"></img>
+      <div className="about-icons">
+        <p>What I do</p>
+        <div className="about-img">
+          <img alt="" src="/img/python.svg"></img>
+          <img alt="" src="/img/docker.svg"></img>
+          <img alt="" src="/img/html.svg"></img>
+          <img alt="" src="/img/javascript.svg"></img>
+          <img alt="" src="/img/reactjs.svg"></img>
+          <img alt="" src="/img/nodejs.svg"></img>
+          <img alt="" src="/img/linux.svg"></img>
+          <img alt="" src="/img/android.svg"></img>
+          <img alt="" src="/img/google-appengine.svg"></img>
+          <img alt="" src="/img/git.svg"></img>
+        </div>
       </div>
     </div>
   );
