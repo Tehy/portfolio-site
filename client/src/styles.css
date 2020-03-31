@@ -110,6 +110,10 @@ img:hover {
   padding: 5px;
   padding-bottom: 25px;
 }
+.content iframe {
+  width: 50%;
+  height: 500px;
+}
 .content-projects {
   display: flex;
   justify-content: center;

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h3>Conway's Game Of Life</h3>
+    <p1>Select size</p1>
+    <select id="ddlViewBy" onchange="selectMatrixSize()">
+
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+      </select>
+      <button onclick="game.start()">start</button>
+      <button onclick="game.stop()">stop</button>
+      <button onclick="game.reset()">reset</button>
+      <br>
+<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
+</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var w = myCanvas.width;
+var h = myCanvas.height;
+
+var arr=[]; //game matrix
+var matrixSize=10; //init matrix size
+
+function selectMatrixSize() {
+    var e = document.getElementById("ddlViewBy");
+    matrixSize = e.options[e.selectedIndex].value;
+}
+
+function initGameArr(matrixSize) { //fill game matrix array and draw rect to canvas
+    var cellLength=w/matrixSize; 
+    for(var i=0;i<matrixSize;i++){
+        arr[i]=[];
+        for(var j=0;j<matrixSize;j++){
+            arr[i][j]=Math.round(Math.random()); //random values(0 or 1) to represent alive/dead cells
+
+            if(arr[i][j]==1){
+                ctx.fillStyle = "lightGreen"; //alive cells
+                ctx.fillRect(cellLength*j, cellLength*i, cellLength, cellLength);   
+            }  
+            else{
+                ctx.fillStyle = "white"; //dead cells
+                ctx.fillRect(cellLength*j, cellLength*i, cellLength, cellLength);   
+            }
+        }
+    }
+}
+
+function checkNeighbourDoa(arr) { //check how many dead/alive cells each cell has
+    var arrLen=arr.length;
+    var liveNeighbours=0;
+
+    var doa={};
+    doa["alive"]=[];
+    doa["perish"]=[];
+    
+    for(i=0;i<arrLen;i++){
+        for(j=0;j<arrLen;j++){
+            try {
+                if(arr[i-1][j-1]){
+                    liveNeighbours++;
+                }
+            }
+            catch{}
+            try {
+                if(arr[i-1][j]){
+                    liveNeighbours++;
+                }
+            }
+            catch{}
+            try {
+                if(arr[i-1][j+1]){
+                    liveNeighbours++;
+                }
+            }
+            catch{}
+            try {
+                if(arr[i][j-1]){
+                    liveNeighbours++;
+                }
+            }
+            catch{}
+            try {
+                if(arr[i][j+1]){
+                    liveNeighbours++;
+                }
+            }
+            catch{}
+            try {
+                if(arr[i+1][j-1]){
+                    liveNeighbours++;
+                }
+            }
+            catch{}
+            try {
+                if(arr[i+1][j]){
+                    liveNeighbours++;
+                }
+            }
+            catch{}
+            try {
+                if(arr[i+1][j+1]){
+                    liveNeighbours++;
+                }
+            }
+            catch{}
+
+            //apply rules to live cell
+            if(arr[i][j]){
+                if(liveNeighbours<2){
+                    //set dead
+                    doa["perish"].push([i,j]);
+                }
+                if(liveNeighbours==2||liveNeighbours==3){
+                    //set remain alive
+                    doa["alive"].push([i,j]);
+                }
+                if(liveNeighbours>3){
+                    //set dead
+                    doa["perish"].push([i,j]);
+                }
+            }
+            //apply rules to dead cell
+            if(!(arr[i][j])){
+                if(liveNeighbours==3){
+                    //set alive
+                    doa["alive"].push([i,j]);
+                }
+            }
+            liveNeighbours=0;
+        }
+    }
+    return doa;
+}
+function updateGameArray(dict) {
+    var newArr=[]; //temp array to apply dead/alive status
+    var arrLen=arr.length;
+        
+    for(i=0;i<arrLen;i++){ 
+        newArr.push([0,0,0,0,0,0,0,0,0,0]);
+    }
+    
+    for(var val in dict["alive"]){
+        var i=dict["alive"][val][0];
+        var j=dict["alive"][val][1];
+        newArr[i][j]=1;
+    }
+
+    for(var val in dict["perish"]){
+        var i=dict["perish"][val][0];
+        var j=dict["perish"][val][1];
+        newArr[i][j]=0;
+    }
+    return newArr;
+}
+
+function updateGame(arr) { // draw changed cell values to canvas
+    var arrLen=arr.length;
+    var cellLength=w/arrLen;
+   
+    for(var i=0;i<arrLen;i++){
+        for(var j=0;j<arrLen;j++){
+            
+            if(arr[i][j]==1){
+                ctx.fillStyle = "lightGreen";
+                ctx.fillRect(cellLength*j, cellLength*i, cellLength, cellLength);   
+                ctx.stroke();
+            }
+            else{
+                ctx.fillStyle = "white";
+                ctx.fillRect(cellLength*j, cellLength*i, cellLength, cellLength);   
+            }
+        }
+    }
+}
+function gameLoop() {
+    var dict = checkNeighbourDoa(arr);
+    var newArr = updateGameArray(dict);
+    updateGame(newArr);
+    arr=newArr
+}
+var game = {
+    start : function() {
+        if(arr.length==0){
+            initGameArr(matrixSize);
+        }
+        this.interval = setInterval(gameLoop, 1000);
+    },
+    stop : function() {
+    	clearInterval(this.interval);
+    },
+    reset : function() {
+        this.stop();
+    	initGameArr(matrixSize);
+    }
+}
+</script> 
+
+</body>
+</html>

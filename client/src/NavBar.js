@@ -10,6 +10,13 @@ export default function NavBar() {
       <nav className="nav-bar">
         <img className="avatar" src="/img/avatar2.svg" alt=""></img>
         <ul>
+          {/* <Link
+            className="nav-link"
+            to="/test"
+            style={{ textDecoration: "none" }}
+          >
+            <li>Test</li>
+          </Link> */}
           <Link className="nav-link" to="/" style={{ textDecoration: "none" }}>
             <li>About</li>
           </Link>

@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Project from "./Project";
+import axios from "axios";
 import Language from "./Language";
 
 export default function Projects() {
   useEffect(() => {
-    //fetchProjects();
+    reposInfo();
   }, []);
-
+  const reposInfo = () => {
+    axios.post("/api/repos", {}).then(res => {
+      const repos = res.data;
+      setProjects(repos);
+      setLoading(false);
+    });
+  };
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([]);
 
-  const fetchProjects = async () => {
-    const data = await fetch("https://api.github.com/users/Tehy/repos");
-    const repos = await data.json();
-
-    //var data = await fetch("https://api.github.com/users/Tehy/repos");
-    //const portfolioRepos=repos.map(r=> if(fetch(repos.html_url))
-
-    setProjects(repos);
-    setLoading(false);
-  };
   var languages = projects.map(repo => {
     return repo.language;
   });
@@ -31,15 +28,11 @@ export default function Projects() {
       data: { lang: l, projects: projects.filter(p => p.language === l) }
     };
   });
-  if (projects) {
-    console.log(projects);
-  }
 
   if (loading)
     return (
       <div className="content">
-        <h2>wip</h2>
-        {/* <h2>Loading...</h2> */}
+        <h2>Loading...</h2>
       </div>
     );
   return (

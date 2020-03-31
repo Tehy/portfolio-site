@@ -4,3 +4,8 @@ service: default
 
 env_variables:
   SERVICE_BUILD: "standard"
+handlers:
+  - url: /.*
+    script: auto
+    secure: always
+    redirect_http_response_code: 301
