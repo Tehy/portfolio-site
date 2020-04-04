@@ -1,5 +1,9 @@
-{
-  "data": {
-    "some_data": "data about portfolio resources"
+  
+{ "data":
+  {
+    "some_data": "data about portfolio resources",
+    "live": {
+      "status": false
+    }
   }
 }
