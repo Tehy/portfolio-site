@@ -4,12 +4,16 @@ import { FaGithub } from "react-icons/fa";
 export default function Project(props) {
   return (
     <div className="project">
-      <h4>{props.name}</h4>
+      <div className="project-title">
+        <h2>{props.name}</h2>
+      </div>
       {props.description}
       <br />
-      <a href={props.link} target="_blank" rel="noopener noreferrer">
-        <FaGithub />
-      </a>
+      <div className="proj-buttons">
+        <a href={props.link} target="_blank" rel="noopener noreferrer">
+          <FaGithub />
+        </a>
+      </div>
     </div>
   );
 }

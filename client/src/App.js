@@ -4,7 +4,7 @@ import Projects from "./Projects";
 import About from "./About";
 import CV from "./CV";
 import MessageSent from "./MessageSent";
-import Test from "./Test";
+import ProjectLive from "./ProjectLive";
 import "./styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Contact from "./Contact";
@@ -20,7 +20,7 @@ function App() {
           <Route path="/cv" component={CV} />
           <Route path="/contact" component={Contact} />
           <Route path="/sent" component={MessageSent} />
-          {/* <Route path="/test" component={Test} /> */}
+          <Route path="/live" component={ProjectLive} />
         </Switch>
       </div>
     </Router>

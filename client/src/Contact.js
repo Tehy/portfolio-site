@@ -8,41 +8,45 @@ class Contact extends Component {
       name: "",
       email: "",
       message: "",
-      messageSent: false
+      messageSent: "false",
+      messageStatus: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   //async handleSubmit(e) {
   handleSubmit(e) {
     e.preventDefault();
-
+    this.setState({
+      messageSent: "sending",
+      messageStatus: "Sending...",
+    });
     const { name, email, message } = this.state;
 
     const form = axios
       .post("/api/form", {
         name,
         email,
-        message
+        message,
       })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
+      .then((res) => {
+        const response = res.data;
+        this.setState({
+          messageStatus: response,
+          messageSent: "true",
+        });
       });
-    this.setState({
-      messageSent: true
-    });
   }
 
   render() {
     return (
       <div className="content">
-        {this.state.messageSent === false ? (
+        {this.state.messageSent === "false" ? (
           <div>
             <h2>Contact</h2>
             <form onSubmit={this.handleSubmit}>
@@ -65,11 +69,19 @@ class Contact extends Component {
                   onChange={this.handleChange}
                 />
               </label>
-              <input type="submit" value="Submit" />
+              <input className="submit-btn" type="submit" value="Send" />
             </form>
           </div>
+        ) : this.state.messageSent === "sending" ? (
+          <h2>
+            {/* Message sent */}
+            {this.state.messageStatus}
+          </h2>
         ) : (
-          <h2>Message sent</h2>
+          <h2>
+            {/* Message sent */}
+            {this.state.messageStatus}
+          </h2>
         )}
       </div>
     );

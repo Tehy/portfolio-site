@@ -25,6 +25,7 @@ app.get("/*", (req, res) => {
 const Sendgrid = require("@sendgrid/client");
 Sendgrid.setApiKey(EMAIL_API_KEY);
 
+// catch contact form data
 app.post("/api/form", async (req, res, next) => {
   const htmlEmail = `
   <h3>Contact Detail</h3>
@@ -43,51 +44,51 @@ app.post("/api/form", async (req, res, next) => {
       personalizations: [
         {
           to: [{ email: EMAIL_SEND_TO }],
-          subject: "Contact Request"
-        }
+          subject: "Contact Request",
+        },
       ],
       from: { email: EMAIL_SENDER },
       content: [
         {
           type: "text/html",
-          value: htmlEmail
-        }
-      ]
-    }
+          value: htmlEmail,
+        },
+      ],
+    },
   };
-
-  // [END gae_flex_sendgrid]
-
+  // [END gae_sendgrid]
   if (req.query.test) {
     request.mailSettings = {
       sandboxMode: {
-        enable: true
-      }
+        enable: true,
+      },
     };
   }
-
   // [START sendgrid]
   try {
-    await Sendgrid.request(request);
+    await Sendgrid.request(request, () => {
+      res.send("Message sent succesfully");
+    });
   } catch (err) {
-    next(err);
+    //next(err);
+    res.send("Error sending message");
     return;
   }
 });
-
+// fetch github repos
 app.post("/api/repos", async (req, res, next) => {
-  // get all repos info
+  // get all repos json
   var options = {
     method: "GET",
     url: "https://api.github.com/users/Tehy/repos",
     headers: {
       "Content-Type": "application/json",
       "User-Agent": "Awesome-Octocat-App",
-      authorization: "token " + GITHUB_TOKEN
-    }
+      authorization: "token " + GITHUB_TOKEN,
+    },
   };
-  var repoList = [];
-  var repoInfo = [];
+  var repoList = []; // response array
+  var repoInfo = []; // temp array
   request(options, async (error, response, body) => {
     if (error) {
       console.error("error:", error);
@@ -95,7 +96,7 @@ app.post("/api/repos", async (req, res, next) => {
       const reposData = JSON.parse(body);
       let len = reposData.length;
 
-      // get portfolio.json file of repos
+      // get portfolio.json file of repos if existing
       for (let i = 0; i < len; i++) {
         let urlLen = reposData[i].contents_url.length;
         let urlPath =
@@ -108,8 +109,8 @@ app.post("/api/repos", async (req, res, next) => {
           headers: {
             "Content-Type": "application/json",
             "User-Agent": "Awesome-Octocat-App",
-            authorization: "token " + GITHUB_TOKEN
-          }
+            authorization: "token " + GITHUB_TOKEN,
+          },
         };
         request(options, async (error, response, body) => {
           if (error) {
@@ -121,18 +122,17 @@ app.post("/api/repos", async (req, res, next) => {
               name: name,
               description: description,
               html_url: html_url,
-              content: content
+              content: content,
             });
-            // check if repo has portfolio.json, push to reposList, send reposList to frontend
+            // check if repo has portfolio.json, push to reposList
             if (repoInfo.length === len) {
               for (let j = 0; j < len; j++) {
                 if (repoInfo[j].content != undefined) {
-                  //console.log("FOUND", repoInfo[j]);
-                  repoInfo[j].content = atob(repoInfo[j].content);
+                  repoInfo[j].content = JSON.parse(atob(repoInfo[j].content));
                   repoList.push(repoInfo[j]);
                 }
                 if (j == len - 1) {
-                  //console.log("END");
+                  // send reposList to frontend
                   res.send(repoList);
                 }
               }
@@ -140,6 +140,32 @@ app.post("/api/repos", async (req, res, next) => {
           }
         });
       }
+    }
+  });
+});
+// get live project files
+app.post("/api/live", async (req, res, next) => {
+  const files = req.body.data;
+  const data = files.map((file) =>
+    file
+      .replace("https://github.com/", "https://api.github.com/repos/")
+      .replace("blob/master", "contents")
+  );
+  var options = {
+    method: "GET",
+    url: data[0],
+    headers: {
+      "Content-Type": "application/html",
+      "User-Agent": "Awesome-Octocat-App",
+      authorization: "token " + GITHUB_TOKEN,
+    },
+  };
+  request(options, async (error, response, body) => {
+    if (error) {
+      console.error("error:", error);
+    } else {
+      const fileCont = atob(JSON.parse(body).content);
+      res.send(fileCont);
     }
   });
 });
