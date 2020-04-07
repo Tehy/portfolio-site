@@ -1,9 +1,10 @@
-  
-{ "data":
-  {
-    "some_data": "data about portfolio resources",
+{
+  "data": {
     "live": {
-      "status": false
+      "status": true,
+      "files": [
+        "https://github.com/Tehy/game_of_life/blob/master/game_of_life_js.html"
+      ]
     }
   }
 }

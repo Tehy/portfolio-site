@@ -2,14 +2,17 @@
 
 [www.terohyttinen.com](https://www.terohyttinen.com)
 
-## Dynamic showcase projects from github
+## Dynamic showcase of github projects
 
 - [Github API](https://developer.github.com/v3/)
 - Requires `portfolio.json` config file at project root
 
 ## Dynamic live project showcase
 
-Current feature:- single valid html file - configuration in `portfolio.json`
+Current feature:
+
+- single valid html file
+- configuration in `portfolio.json`
 
 ### Portfolio.json
 
@@ -35,4 +38,8 @@ Format
 
 ## Used tech
 
--Node.js -Express.js -React.js -Github API -Sendgrid web API
+- Node.js
+- Express.js
+- React.js
+- Github API
+- Sendgrid web API
