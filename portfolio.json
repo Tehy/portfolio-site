@@ -1,10 +1,7 @@
 {
   "data": {
     "live": {
-      "status": true,
-      "files": [
-        "https://github.com/Tehy/game_of_life/blob/master/game_of_life_js.html"
-      ]
+      "status": false
     }
   }
 }
