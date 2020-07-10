@@ -1,4 +1,17 @@
 import React from "react";
+let img = (i) => {
+  return (
+    <img
+      alt={i}
+      title={i}
+      src={
+        "/img/" +
+        i +
+        (["azure-appservice", "mongodb"].includes(i) ? ".png" : ".svg")
+      }
+    />
+  );
+};
 
 export default function About() {
   return (
@@ -16,16 +29,18 @@ export default function About() {
         <div className="about-icons">
           <h2>What I've done</h2>
           <div className="about-img">
-            <img alt="" src="/img/python.svg"></img>
-            <img alt="" src="/img/docker.svg"></img>
-            <img alt="" src="/img/html.svg"></img>
-            <img alt="" src="/img/javascript.svg"></img>
-            <img alt="" src="/img/reactjs.svg"></img>
-            <img alt="" src="/img/nodejs.svg"></img>
-            <img alt="" src="/img/linux.svg"></img>
-            <img alt="" src="/img/android.svg"></img>
-            <img alt="" src="/img/google-appengine.svg"></img>
-            <img alt="" src="/img/git.svg"></img>
+            {img("python")}
+            {img("docker")}
+            {img("html")}
+            {img("javascript")}
+            {img("reactjs")}
+            {img("nodejs")}
+            {img("linux")}
+            {img("android")}
+            {img("azure-appservice")}
+            {img("google-appengine")}
+            {img("git")}
+            {img("mongodb")}
           </div>
         </div>
       </div>

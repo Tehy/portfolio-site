@@ -276,7 +276,7 @@ h4 {
   margin-top: 15px;
   margin-left: 15px;
   margin-right: 15px;
-
+  height: auto;
   border-radius: 7px;
   border: solid 1px var(--color4);
   background: var(--about-bg);
@@ -321,10 +321,8 @@ h4 {
 .about-img {
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
-
   background: var(--avatar-l);
   height: 100%;
-
   flex-wrap: wrap;
   justify-content: center;
 }

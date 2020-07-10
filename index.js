@@ -10,11 +10,8 @@ const EMAIL_API_KEY = config.EMAIL_API_KEY;
 const EMAIL_SENDER = config.EMAIL_SENDER;
 const EMAIL_SEND_TO = config.EMAIL_SEND_TO;
 const GITHUB_TOKEN = config.GITHUB_TOKEN;
-const EMAIL_USER = config.EMAIL_USER;
-const EMAIL_PASS = config.EMAIL_PASS;
 const app = express();
 
-// Parse form data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -25,7 +22,7 @@ app.get("/*", (req, res) => {
 const Sendgrid = require("@sendgrid/client");
 Sendgrid.setApiKey(EMAIL_API_KEY);
 
-// catch contact form data
+// contact form data
 app.post("/api/form", async (req, res, next) => {
   const htmlEmail = `
   <h3>Contact Detail</h3>
@@ -70,7 +67,6 @@ app.post("/api/form", async (req, res, next) => {
       res.send("Message sent succesfully");
     });
   } catch (err) {
-    //next(err);
     res.send("Error sending message");
     return;
   }
@@ -87,17 +83,17 @@ app.post("/api/repos", async (req, res, next) => {
       authorization: "token " + GITHUB_TOKEN,
     },
   };
-  var repoList = []; // response array
-  var repoInfo = []; // temp array
+  var repoInfo = []; // temp array for all repos
+  //var repoList = []; // array to response front
   request(options, async (error, response, body) => {
     if (error) {
       console.error("error:", error);
     } else {
       const reposData = JSON.parse(body);
-      let len = reposData.length;
+      let reposCount = reposData.length;
 
-      // get portfolio.json file of repos if existing
-      for (let i = 0; i < len; i++) {
+      // get portfolio.json file of repos, if exists, send to front
+      for (let i = 0; i < reposCount; i++) {
         let urlLen = reposData[i].contents_url.length;
         let urlPath =
           reposData[i].contents_url.substring(0, urlLen - 7) + "portfolio.json";
@@ -113,30 +109,60 @@ app.post("/api/repos", async (req, res, next) => {
           },
         };
         request(options, async (error, response, body) => {
-          if (error) {
+          if (erro) {
           } else {
             let content = JSON.parse(body).content;
-            //let repoInfoIndex = repoInfo.length;
             repoInfo.push({
               language: language,
               name: name,
               description: description,
               html_url: html_url,
-              content: content,
+              json_content: content, //content = portfolio.json in b64
             });
-            // check if repo has portfolio.json, push to reposList
-            if (repoInfo.length === len) {
-              for (let j = 0; j < len; j++) {
+            // when all data in repoinfo array
+            // check which repo has portfolio.json ? push to reposList : continue
+            if (repoInfo.length === reposCount) {
+              console.log("NOTdoinstuff");
+
+              ((
+                sendAfter = (lista) => {
+                  console.log(lista);
+                  res.send(lista);
+                  //console.log("SENT -> ", lista);
+                }
+              ) => {
+                var list = repoInfo.filter(
+                  (repo) => repo.json_content != undefined
+                );
+
+                console.log("doinstuff");
+
+                /* TODO broken repo undefined */
+                var repoList = list.map(
+                  (repo) =>
+                    console.log("repo.json_content === ", repo.json_content),
+                  //console.log(repo.name, repo.content),
+                  //let con = JSON.parse(atob(repo.json_content)),
+                  ({ language, name, description, html_url } = repo)
+                );
+
+                console.log(repoList);
+                sendAfter(repoList);
+              })();
+            }
+
+            /* if (repoInfo.length === reposCount) {
+              for (let j = 0; j < reposCount; j++) {
                 if (repoInfo[j].content != undefined) {
                   repoInfo[j].content = JSON.parse(atob(repoInfo[j].content));
                   repoList.push(repoInfo[j]);
                 }
-                if (j == len - 1) {
-                  // send reposList to frontend
+                if (j == reposCount - 1) {
+                  // send reposList to front
                   res.send(repoList);
                 }
               }
-            }
+            } */
           }
         });
       }
