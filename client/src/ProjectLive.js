@@ -24,11 +24,11 @@ export default function ProjectLive(props) {
     <div>
       {loading === true ? (
         <div className="content">
-          <h2>Loading...</h2>
+          <h1>Loading...</h1>
         </div>
       ) : (
         <div className="content">
-          <h2>Live</h2>
+          <h1>Live</h1>
           <iframe srcDoc={file}></iframe>
         </div>
       )}

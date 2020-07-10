@@ -48,7 +48,7 @@ class Contact extends Component {
       <div className="content">
         {this.state.messageSent === "false" ? (
           <div>
-            <h2>Contact</h2>
+            <h1>Contact</h1>
             <form onSubmit={this.handleSubmit}>
               <label>
                 Name:

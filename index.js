@@ -12,13 +12,12 @@ const EMAIL_SEND_TO = config.EMAIL_SEND_TO;
 const GITHUB_TOKEN = config.GITHUB_TOKEN;
 const app = express();
 
+app.use(express.json());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, "/build")));
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/build/index.html"));
-});
+
 const Sendgrid = require("@sendgrid/client");
 Sendgrid.setApiKey(EMAIL_API_KEY);
 
@@ -72,7 +71,7 @@ app.post("/api/form", async (req, res, next) => {
   }
 });
 // fetch github repos
-app.post("/api/repos", async (req, res, next) => {
+app.get("/api/repos", async (req, res, next) => {
   // get all repos json
   var options = {
     method: "GET",
@@ -84,92 +83,82 @@ app.post("/api/repos", async (req, res, next) => {
     },
   };
   var repoInfo = []; // temp array for all repos
-  //var repoList = []; // array to response front
-  request(options, async (error, response, body) => {
-    if (error) {
-      console.error("error:", error);
-    } else {
-      const reposData = JSON.parse(body);
-      let reposCount = reposData.length;
+  request(options, (req, response) => {
+    const reposData = JSON.parse(response.body);
+    let reposCount = reposData.length;
+    for (let i = 0; i < reposCount; i++) {
+      let urlLen = reposData[i].contents_url.length;
+      let urlPath =
+        reposData[i].contents_url.substring(0, urlLen - 7) + "portfolio.json";
 
-      // get portfolio.json file of repos, if exists, send to front
-      for (let i = 0; i < reposCount; i++) {
-        let urlLen = reposData[i].contents_url.length;
-        let urlPath =
-          reposData[i].contents_url.substring(0, urlLen - 7) + "portfolio.json";
-
-        let { name, description, html_url, language } = reposData[i];
-        var options = {
-          method: "GET",
-          url: urlPath,
-          headers: {
-            "Content-Type": "application/json",
-            "User-Agent": "Awesome-Octocat-App",
-            authorization: "token " + GITHUB_TOKEN,
-          },
-        };
-        request(options, async (error, response, body) => {
-          if (erro) {
-          } else {
-            let content = JSON.parse(body).content;
-            repoInfo.push({
-              language: language,
-              name: name,
-              description: description,
-              html_url: html_url,
-              json_content: content, //content = portfolio.json in b64
-            });
-            // when all data in repoinfo array
-            // check which repo has portfolio.json ? push to reposList : continue
-            if (repoInfo.length === reposCount) {
-              console.log("NOTdoinstuff");
-
-              ((
-                sendAfter = (lista) => {
-                  console.log(lista);
-                  res.send(lista);
-                  //console.log("SENT -> ", lista);
-                }
-              ) => {
-                var list = repoInfo.filter(
-                  (repo) => repo.json_content != undefined
-                );
-
-                console.log("doinstuff");
-
-                /* TODO broken repo undefined */
-                var repoList = list.map(
-                  (repo) =>
-                    console.log("repo.json_content === ", repo.json_content),
-                  //console.log(repo.name, repo.content),
-                  //let con = JSON.parse(atob(repo.json_content)),
-                  ({ language, name, description, html_url } = repo)
-                );
-
-                console.log(repoList);
-                sendAfter(repoList);
-              })();
-            }
-
-            /* if (repoInfo.length === reposCount) {
-              for (let j = 0; j < reposCount; j++) {
-                if (repoInfo[j].content != undefined) {
-                  repoInfo[j].content = JSON.parse(atob(repoInfo[j].content));
-                  repoList.push(repoInfo[j]);
-                }
-                if (j == reposCount - 1) {
-                  // send reposList to front
-                  res.send(repoList);
-                }
+      let { name, description, html_url, language } = reposData[i];
+      var options = {
+        method: "GET",
+        url: urlPath,
+        headers: {
+          "Content-Type": "application/json",
+          "User-Agent": "Awesome-Octocat-App",
+          authorization: "token " + GITHUB_TOKEN,
+        },
+      };
+      request(options, async (error, response, body) => {
+        if (error) {
+          console.log("error", error);
+        } else {
+          let content = JSON.parse(body).content;
+          repoInfo.push({
+            language: language,
+            name: name,
+            description: description,
+            html_url: html_url,
+            json_content: content, //content = portfolio.json in b64
+          });
+          // when all data in repoinfo array
+          // check which repo has portfolio.json ? push to reposList : continue
+          if (repoInfo.length === reposCount) {
+            ((
+              callBackSendAfter = (lista) => {
+                res.send(lista);
               }
-            } */
+            ) => {
+              var list = repoInfo.filter(
+                (repo) => repo.json_content != undefined
+              );
+              var repoList = list.map((repo) => {
+                let newObj = ({
+                  language,
+                  name,
+                  description,
+                  html_url,
+                  json_content: content,
+                } = repo);
+                newObj.content = JSON.parse(atob(repo.json_content));
+                delete newObj["json_content"];
+                return newObj;
+              });
+              callBackSendAfter(repoList);
+            })();
           }
-        });
-      }
+
+          /* if (repoInfo.length === reposCount) {
+            for (let j = 0; j < reposCount; j++) {
+              if (repoInfo[j].content != undefined) {
+                repoInfo[j].content = JSON.parse(atob(repoInfo[j].content));
+                repoList.push(repoInfo[j]);
+              }
+              if (j == reposCount - 1) {
+                // send reposList to front
+                res.send(repoList);
+              }
+            }
+          }*/
+        }
+      });
     }
   });
 });
 // get live project files
+// TODO post is wrong
 app.post("/api/live", async (req, res, next) => {
   const files = req.body.data;
   const data = files.map((file) =>
@@ -188,12 +177,17 @@ app.post("/api/live", async (req, res, next) => {
   };
   request(options, async (error, response, body) => {
     if (error) {
-      console.error("error:", error);
+      console.error("error", error);
     } else {
       const fileCont = atob(JSON.parse(body).content);
       res.send(fileCont);
     }
   });
+});
+
+// not so fancy invalid url catcher
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/build/index.html"));
 });
 
 const PORT = process.env.PORT || 8080;

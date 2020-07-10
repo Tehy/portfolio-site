@@ -9,7 +9,7 @@ export default function Projects() {
     fetchRepos();
   }, []);
   const fetchRepos = () => {
-    axios.post("/api/repos", {}).then((res) => {
+    axios.get("/api/repos").then((res) => {
       const repos = res.data;
       setProjects(repos);
       setLoading(false);
@@ -17,68 +17,56 @@ export default function Projects() {
   };
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([]);
+  const [loadingMessage, setLoadingMessage] = useState("Loading...");
 
-  /* var languages = projects.map(repo => {
-    return repo.language;
-  }); */
-
-  // filter projects by languages
-  var languages = new Set(
-    projects.map((repo) => {
-      return repo.language;
-    })
-  );
-  languages = Array.from(languages);
-
-  var projByLang = languages.map((l) => {
-    return {
-      data: { lang: l, projects: projects.filter((p) => p.language === l) },
-    };
-  });
-
-  /* for (let i of projByLang) {
-    console.log(i.data.projects[0].content.data.live);
-  } */
+  // TODO unset timeout on componentWillUnmount
+  useEffect(() => {
+    setTimeout(() => {
+      if (projects.length === 0) {
+        setLoadingMessage("Error receiving data...");
+      }
+    }, 6000);
+  }, []);
 
   if (loading)
     return (
       <div className="content">
-        <h2>Loading...</h2>
+        <h1>{loadingMessage}</h1>
       </div>
     );
   return (
     <div className="content">
-      <h2>Projects</h2>
-      {projByLang.map((l) => (
-        <div className="projects-by-lang">
-          <Language key={l.data.lang} language={l.data.lang} />
+      <h1>Projects</h1>
+      {projects.map((p, i) => (
+        <div key={i} className="projects-by-lang">
+          <Language key={p.language} language={p.language} />
+          <Project
+            key={p.name}
+            name={p.name.replace(/-|_/gi, " ")}
+            description={p.description}
+            link={p.html_url}
+          />
 
-          <div className="content-projects">
-            {l.data.projects.map((pr) => (
-              <div>
-                <Project
-                  key={pr.name}
-                  name={pr.name.replace(/-|_/gi, " ")}
-                  description={pr.description}
-                  link={pr.html_url}
-                />
-                {pr.content.data.live.status === true ? (
-                  <Link
-                    to={{
-                      pathname: "/live",
-                      data: pr.content.data.live.files,
-                    }}
-                  >
-                    <button type="button">Live!</button>
-                  </Link>
-                ) : (
-                  <button style={{ display: "none" }} type="button">
-                    Im live
-                  </button>
-                )}
-              </div>
+          {(p.content.data.live.status === true &&
+            p.content.data.live.files && (
+              <Link
+                to={{
+                  pathname: "/live",
+                  data: p.content.data.live.files,
+                }}
+              >
+                <button type="button">Live!</button>
+              </Link>
+            )) ||
+            (p.content.data.live.link && (
+              <a
+                href={p.content.data.live.link}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <button type="button">Live!</button>
+              </a>
             ))}
-          </div>
         </div>
       ))}
     </div>
