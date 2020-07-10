@@ -48,4 +48,4 @@ Format
 
 ## Caution
 
-My introductory node project, contains silly code.
+This is my introductory node project, contains silly code.

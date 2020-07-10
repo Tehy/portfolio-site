@@ -16,7 +16,7 @@ let img = (i) => {
 export default function About() {
   return (
     <div className="content">
-      <h2>About</h2>
+      <h1>About</h1>
       <div className="about">
         <div className="about-text">
           <h1>Me</h1>
