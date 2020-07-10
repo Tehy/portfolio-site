@@ -269,14 +269,16 @@ h4 {
 }
 .about {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  justify-content: space-evenly;
 }
 .about-text {
+  transform: translateX(55px);
+  display: inline-block;
   margin-top: 15px;
   margin-left: 15px;
-  margin-right: 15px;
-  height: auto;
+  margin-right: 25px;
+  max-height: 350px;
   border-radius: 7px;
   border: solid 1px var(--color4);
   background: var(--about-bg);
@@ -286,7 +288,7 @@ h4 {
   color: var(--a-col);
   text-align: left;
 
-  padding-top: 15px;
+  padding-top: 25px;
   padding-bottom: 15px;
   padding-right: 15px;
   padding-left: 35px;
@@ -300,9 +302,13 @@ h4 {
 .about-text li {
   font-size: 1.7em;
   text-align: left;
-  padding-top: 15px;
+  padding-top: 25px;
 }
 .about-icons {
+  transform: translateX(55px);
+  display: inline-block;
+  margin-left: 55px;
+  margin-right: 15px;
   margin-top: 15px;
   border-radius: 7px;
   border: solid 1px var(--color4);
@@ -335,15 +341,21 @@ img:hover {
   opacity: 1;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 700px) {
   .content {
   }
   .about-text {
+    transform: translateX(0);
+    margin-left: 5px;
+    margin-right: 5px;
     min-width: 250px;
   }
   .about-text ul {
   }
   .about-icons {
+    margin-left: 5px;
+    margin-right: 5px;
+    transform: translateX(0);
     min-width: 250px;
     text-align: center;
   }
