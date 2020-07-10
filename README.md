@@ -7,11 +7,12 @@
 - [Github API](https://developer.github.com/v3/)
 - Requires `portfolio.json` config file at project root
 
-## Dynamic live project showcase
+## Live project showcase
 
 Current feature:
 
-- single valid html file
+- Showcase single valid html file
+- Or link to project site
 - configuration in `portfolio.json`
 
 ### Portfolio.json
@@ -24,7 +25,8 @@ Format
   {
     "live": {
       "status": true,
-      "files": ["FILEURL"]
+      "files": ["FILEURL"],
+      "link": "https://link-to-project"
     }
   }
 }
@@ -43,3 +45,7 @@ Format
 - React.js
 - Github API
 - Sendgrid web API
+
+## Caution
+
+My introductory node project, contains silly code.
