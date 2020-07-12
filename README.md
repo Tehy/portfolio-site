@@ -46,6 +46,6 @@ Format
 - Github API
 - Sendgrid web API
 
-## Caution
+## Note
 
 This is my introductory node project, contains silly code.
