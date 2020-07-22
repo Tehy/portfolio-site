@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+/* TODO 
+  redo inconsistent component code
+*/
+
 class Contact extends Component {
   constructor() {
     super();
@@ -73,15 +77,15 @@ class Contact extends Component {
             </form>
           </div>
         ) : this.state.messageSent === "sending" ? (
-          <h2>
+          <h1>
             {/* Message sent */}
             {this.state.messageStatus}
-          </h2>
+          </h1>
         ) : (
-          <h2>
+          <h1>
             {/* Message sent */}
             {this.state.messageStatus}
-          </h2>
+          </h1>
         )}
       </div>
     );
