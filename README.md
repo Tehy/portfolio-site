@@ -1,38 +1,51 @@
-# My portfolio site
+# Description
+
+A portfolio website project. Automatically pull GitHub repos to your portfolio site.  
+Displays repo **language**, **description**, **gihub-link** and **live project status** with link in the 'project-card'.
+
+## Live
 
 [www.terohyttinen.com](https://www.terohyttinen.com)
 
-## Dynamic showcase of github projects
+## Dynamic showcase of GitHub projects
 
-- [Github API](https://developer.github.com/v3/)
 - Requires `portfolio.json` config file at project root
+- Uses [Github API](https://developer.github.com/v3/)
 
 ## Live project showcase
 
-Current feature:
+- Showcase a html file
+- Or link to live project resource
 
-- Showcase single valid html file
-- Or link to project site
-- configuration in `portfolio.json`
+#### Portfolio.json
 
-### Portfolio.json
-
-Configuration file to pull repo info to showcase in portfolio site.  
-Format
+##### Example format to display html file:
 
 ```
 { "data":
   {
     "live": {
       "status": true,
-      "files": ["FILEURL"],
-      "link": "https://link-to-project"
+      "files": ["FILEURL"]
     }
   }
 }
 ```
 
-`example FILEURL = https://github.com/Tehy/game_of_life/blob/master/game_of_life_js.html`
+`Example FILEURL = https://github.com/Tehy/game_of_life/blob/master/game_of_life_js.html`
+
+##### Example format to link to external site:
+
+```
+{ "data":
+  {
+    "live": {
+      "status": true,
+      "link": "https://link-to-project"
+    }
+  }
+}
+```
 
 ## Contact form
 
@@ -48,4 +61,4 @@ Format
 
 ## Note
 
-This is my introductory node project, contains silly code.
+This is my introductory node project, contains silly code
