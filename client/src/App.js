@@ -9,6 +9,19 @@ import "./styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Contact from "./Contact";
 
+const NoMatchPage = () => {
+  return (
+    <div className="content">
+      {" "}
+      <h1>
+        404
+        <br />
+        invalid url not found
+      </h1>
+    </div>
+  );
+};
+
 function App() {
   return (
     <Router>
@@ -21,6 +34,7 @@ function App() {
           <Route path="/contact" component={Contact} />
           <Route path="/sent" component={MessageSent} />
           <Route path="/live" component={ProjectLive} />
+          <Route path="*" component={NoMatchPage} />
         </Switch>
       </div>
     </Router>

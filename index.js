@@ -161,6 +161,10 @@ app.get("/api/repos", async (req, res, next) => {
 // TODO post is wrong
 app.post("/api/live", async (req, res, next) => {
   const files = req.body.data;
+
+  if (!files) {
+    return res.sendStatus(404);
+  }
   const data = files.map((file) =>
     file
       .replace("https://github.com/", "https://api.github.com/repos/")
@@ -186,9 +190,10 @@ app.post("/api/live", async (req, res, next) => {
 });
 
 // not so fancy invalid url catcher
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/build/index.html"));
-});
+/* app.get("/*", (req, res) => {
+  //res.sendFile(path.join(__dirname, "/build/index.html"));
+  res.sendStatus(404);
+}); */
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
