@@ -1,7 +1,7 @@
 # Description
 
 A portfolio website project. Automatically pull GitHub repos to your portfolio site.  
-Displays repo **language**, **description**, **gihub-link** and **live project status** with link in the 'project-card'.
+Displays repo **name**, **language**, **description**, **gihub-link** and **live project status** with link in the 'project-card'.
 
 ## Live
 
