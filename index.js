@@ -6,14 +6,17 @@ const atob = require("atob");
 const request = require("request");
 const bodyParser = require("body-parser");
 const config = require("./config.json");
+const history = require("connect-history-api-fallback");
 const EMAIL_API_KEY = config.EMAIL_API_KEY;
 const EMAIL_SENDER = config.EMAIL_SENDER;
 const EMAIL_SEND_TO = config.EMAIL_SEND_TO;
 const GITHUB_TOKEN = config.GITHUB_TOKEN;
-const app = express();
 
+const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(history());
+
 //app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, "/build")));
@@ -158,7 +161,7 @@ app.get("/api/repos", async (req, res, next) => {
   });
 });
 // get live project files
-// TODO post is wrong
+// TODO fixc  post
 app.post("/api/live", async (req, res, next) => {
   const files = req.body.data;
 
@@ -188,12 +191,6 @@ app.post("/api/live", async (req, res, next) => {
     }
   });
 });
-
-// not so fancy invalid url catcher
-/* app.get("/*", (req, res) => {
-  //res.sendFile(path.join(__dirname, "/build/index.html"));
-  res.sendStatus(404);
-}); */
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

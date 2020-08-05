@@ -181,9 +181,11 @@ img:hover {
 .content iframe {
   text-align: center;
   border: none;
-  width: 350px;
-  justify-content: center;
-  height: 400px;
+  width: 100%;
+  height: 750px;
+  /* TODO 
+    auto set height
+  */
 }
 .language h3 {
   margin-bottom: 15px;

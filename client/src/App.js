@@ -1,13 +1,13 @@
 import React from "react";
 import NavBar from "./NavBar";
-import Projects from "./Projects";
 import About from "./About";
 import CV from "./CV";
 import MessageSent from "./MessageSent";
 import ProjectLive from "./ProjectLive";
-import "./styles.css";
+import Projects from "./Projects";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Contact from "./Contact";
+import "./styles.css";
 
 const NoMatchPage = () => {
   return (

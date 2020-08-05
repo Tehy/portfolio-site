@@ -36,12 +36,10 @@ export default function ProjectLive(props) {
     );
   return (
     <div>
-      (
       <div className="content">
         <h1>Live</h1>
         <iframe srcDoc={file}></iframe>
       </div>
-      )
     </div>
   );
 }

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 
 /* TODO 
-  redo inconsistent component code
+  redo inconsistent code between components
+  ie. this.state / useState
 */
 
 class Contact extends Component {
@@ -12,8 +13,8 @@ class Contact extends Component {
       name: "",
       email: "",
       message: "",
-      messageSent: "false",
-      messageStatus: "",
+      messageSentStatus: "false",
+      messageStatusText: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,8 +28,8 @@ class Contact extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setState({
-      messageSent: "sending",
-      messageStatus: "Sending...",
+      messageSentStatus: "sending",
+      messageStatusText: "Sending...",
     });
     const { name, email, message } = this.state;
 
@@ -41,8 +42,8 @@ class Contact extends Component {
       .then((res) => {
         const response = res.data;
         this.setState({
-          messageStatus: response,
-          messageSent: "true",
+          messageStatusText: response,
+          messageSentStatus: "true",
         });
       });
   }
@@ -50,7 +51,7 @@ class Contact extends Component {
   render() {
     return (
       <div className="content">
-        {this.state.messageSent === "false" ? (
+        {this.state.messageSentStatus === "false" ? (
           <div>
             <h1>Contact</h1>
             <form onSubmit={this.handleSubmit}>
@@ -76,15 +77,15 @@ class Contact extends Component {
               <input className="submit-btn" type="submit" value="Send" />
             </form>
           </div>
-        ) : this.state.messageSent === "sending" ? (
+        ) : this.state.messageSentStatus === "sending" ? (
           <h1>
             {/* Message sent */}
-            {this.state.messageStatus}
+            {this.state.messageStatusText}
           </h1>
         ) : (
           <h1>
             {/* Message sent */}
-            {this.state.messageStatus}
+            {this.state.messageStatusText}
           </h1>
         )}
       </div>
