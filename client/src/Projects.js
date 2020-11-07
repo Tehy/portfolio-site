@@ -58,7 +58,8 @@ export default function Projects() {
                 <button type="button">Live!</button>
               </Link>
             )) ||
-            (p.content.data.live.link && (
+            (p.content.data.live.status === true && 
+             p.content.data.live.link && (
               <a
                 href={p.content.data.live.link}
                 rel="noopener noreferrer"

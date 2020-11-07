@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function CV() {
-  const cv = "/personal/terohyttinen_cv_en.pdf";
+  const cv = "/personal/terohyttinen_cv_en_public.pdf";
   return (
     <div className="content">
       <h1>CV</h1>
