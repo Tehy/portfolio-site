@@ -25,6 +25,7 @@ const Sendgrid = require("@sendgrid/client");
 Sendgrid.setApiKey(EMAIL_API_KEY);
 
 // contact form data
+/*
 app.post("/api/form", async (req, res, next) => {
   const htmlEmail = `
   <h3>Contact Detail</h3>
@@ -66,13 +67,14 @@ app.post("/api/form", async (req, res, next) => {
   // [START sendgrid]
   try {
     await Sendgrid.request(request, () => {
-      res.send("Message sent succesfully");
+      res.send("Message sent!");
     });
   } catch (err) {
     res.send("Error sending message");
     return;
   }
 });
+*/
 // fetch github repos
 app.get("/api/repos", async (req, res, next) => {
   // get all repos json

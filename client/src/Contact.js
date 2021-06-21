@@ -7,7 +7,17 @@ import axios from "axios";
 */
 
 class Contact extends Component {
-  constructor() {
+render(){
+  return(
+    <div className="content">
+      <a className="email-text" href = "mailto:terohyttinen@outlook.com">
+Message me
+</a>
+    </div>
+  );
+}
+
+  /* constructor() {
     super();
     this.state = {
       name: "",
@@ -79,17 +89,17 @@ class Contact extends Component {
           </div>
         ) : this.state.messageSentStatus === "sending" ? (
           <h1>
-            {/* Message sent */}
+            // Message sent
             {this.state.messageStatusText}
           </h1>
         ) : (
           <h1>
-            {/* Message sent */}
+            // Message sent
             {this.state.messageStatusText}
           </h1>
         )}
       </div>
     );
-  }
+  } */
 }
 export default Contact;

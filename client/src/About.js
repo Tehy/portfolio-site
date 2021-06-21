@@ -7,7 +7,7 @@ let img = (i) => {
       src={
         "/img/" +
         i +
-        (["azure-appservice", "mongodb"].includes(i) ? ".png" : ".svg")
+        (["azure-appservice", "mongodb", "dotNET"].includes(i) ? ".png" : ".svg")
       }
     />
   );
@@ -21,7 +21,6 @@ export default function About() {
         <div className="about-text">
           <h1>Me</h1>
           <ul>
-            <li>Student</li>
             <li>Developer</li>
             <li>Jyväskylä, Finland</li>
           </ul>
@@ -29,6 +28,7 @@ export default function About() {
         <div className="about-icons">
           <h2>What I've done</h2>
           <div className="about-img">
+            {img("dotNET")}
             {img("python")}
             {img("docker")}
             {img("html")}
