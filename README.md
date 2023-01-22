@@ -49,7 +49,7 @@ Displays repo **name**, **language**, **description**, **gihub-link** and **live
 
 ## Contact form
 
-- [Sendgrid](https://sendgrid.com/)
+- [~~Sendgrid~~](https://sendgrid.com/)
 
 ## Used tech
 
@@ -57,7 +57,7 @@ Displays repo **name**, **language**, **description**, **gihub-link** and **live
 - Express.js
 - React.js
 - Github API
-- Sendgrid web API
+- ~~Sendgrid web API~~
 
 ## Note
 
