@@ -23,8 +23,6 @@
   --navbtn-bg-col: ;
   --about-bg: var(--color2);
 }
-form {
-}
 input,
 textarea {
   border: solid 0.5px var(--color4);
@@ -89,8 +87,6 @@ a {
 #contact-form {
   justify-content: center;
 }
-.nav-link {
-}
 .nav-bar {
   font-size: x-large;
   padding-top: 30px;
@@ -105,10 +101,6 @@ a {
 
 .nav-bar a {
   transition: underline 2s linear;
-}
-.nav-bar ul {
-  /* border-left: 1px solid var(--color3);
-  border-right: 1px solid var(--color3); */
 }
 .nav-bar li {
   color: var(--navbtn-col);
@@ -217,8 +209,6 @@ img:hover {
   font-weight: bolder;
   font-size: 1.05em;
   background: var(--avatar-l);
-}
-.project-title {
 }
 .projects-by-lang button {
   color: var(--a-col);
@@ -348,9 +338,13 @@ h4 {
   
   display: block;
 }
+.about-icons:hover {
+  cursor: pointer;
+}
 .about-icons-clicker-text {
   position: fixed;
-  top: 0;font-size: 1em;
+  top: 0;
+  font-size: 1em;
   right: 0;
 }
 .about-img {
@@ -375,16 +369,12 @@ img:hover {
 }
 
 @media screen and (max-width: 700px) {
-  .content {
-  }
   .about-text {
     transform: translateX(0);
     margin-left: 5px;
     margin-right: 5px;
     margin-bottom: 35px;
     min-width: 250px;
-  }
-  .about-text ul {
   }
   .about-icons {
     margin-left: 5px;
